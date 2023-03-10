@@ -5,7 +5,7 @@ const refs = {
   email: document.querySelector('[name="email"]'),
   textarea: document.querySelector('[name="message"]'),
 };
-const formData = {};
+let formData = {};
 const STORAGE_KEY = 'feedback-form-state';
 
 fillInForm();
@@ -22,6 +22,7 @@ function handleFormOnSubmit(e) {
     e.currentTarget.reset();
     localStorage.removeItem(STORAGE_KEY);
     console.log(formData);
+    formData = {};
   }
 }
 
