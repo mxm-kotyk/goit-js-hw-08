@@ -22,7 +22,7 @@ function handleFormOnSubmit(e) {
     e.currentTarget.reset();
     localStorage.removeItem(STORAGE_KEY);
     console.log(formData);
-    formData = {};
+    Object.keys(formData).forEach(key => (formData[key] = ''));
   }
 }
 
@@ -35,15 +35,10 @@ function fillInForm() {
   const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
   if (localStorage.getItem(STORAGE_KEY)) {
-    // Розгалуження що йдуть нижче потрібні для того, аби у відповідні поля форми не записувалося undefined, якщо в локальному сховищі не зберглися їхні value
+    formData = savedData;
 
-    if (savedData.email) {
-      refs.email.value = savedData.email;
-      formData[refs.email.name] = refs.email.value;
-    }
-    if (savedData.message) {
-      refs.textarea.value = savedData.message;
-      formData[refs.textarea.name] = refs.textarea.value;
+    for (const key in formData) {
+      refs.form.elements[key].value = formData[key];
     }
   }
 }
